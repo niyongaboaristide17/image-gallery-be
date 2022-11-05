@@ -9,6 +9,7 @@ https://docs.djangoproject.com/en/4.1/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.1/ref/settings/
 """
+from decouple import config
 
 from pathlib import Path
 
@@ -25,7 +26,9 @@ SECRET_KEY = 'django-insecure-ysu94r*kqpyl8bmx*4s_u8a%jx4$1vctj9rofsvb=*+g6j83e$
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    '*'
+]
 
 
 # Application definition
@@ -38,12 +41,21 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
+    'rest_framework',
+    'rest_framework.authtoken',
     'django_filters',
+
+    "corsheaders",
+
+    'users',
+    'gallery',
+    'notifications',
 ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -135,3 +147,8 @@ REST_FRAMEWORK = {
         'django_filters.rest_framework.DjangoFilterBackend',
     )
 }
+
+SENDGRID_API_KEY = config("SENDGRID_API_KEY")
+SENDGRID_DEFAULT_SENDER = config("SENDGRID_DEFAULT_SENDER")
+
+CORS_ORIGIN_ALLOW_ALL=True

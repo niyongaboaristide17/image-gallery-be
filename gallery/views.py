@@ -23,6 +23,7 @@ class PostViewSet(viewsets.ModelViewSet):
 	permission_classes = [IsAuthenticated,]
 	filter_fields = ['id', 'title', 'decription', 'created_at', 'created_by', 'gallery']
 	search_fields = ['title', 'description']
+	filterset_fields = ['gallery', ]
 
 	def get_queryset(self):
 		return Post.objects.filter(created_by=self.request.user)
